@@ -13,34 +13,34 @@
 # include <fcntl.h>
 # include <limits.h>
 
-typedef struct              s_coord
+typedef struct		s_coord
 {
-    int		width;
-    int		height;
-	char	**tetr;
-	char	name_tetr;
+    int				width;
+    int				height;
+	char			**tetr;
+	char			name_tetr;
 
     
 }                   t_coord;
 
  
-typedef struct              s_map
+typedef struct		s_map
 {
     char            **d_array;
     int             size;
     
-}	                      t_map;
-typedef struct s_tetr
+}					t_map;
+typedef struct 		s_tetr
 {
-	char **pos;
-	int			width;
-	int			height;
-	char	value;
-}				t_tetr;
+	char 			**pos;
+	int				width;
+	int				height;
+	char			value;
+}					t_tetr;
 
 void				print_map(char **map);
 int                 ft_checkhash(char **s);
-void                error(char *str);
+void                error();
 t_coord             *extract_fig(char **save_tetro, char letter);
 int                 ft_checker(char **str);
 char				**create_map(int num);

@@ -6,7 +6,7 @@
 /*   By: mstratu <mstratu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 09:56:17 by mstratu           #+#    #+#             */
-/*   Updated: 2019/03/05 17:15:20 by mstratu          ###   ########.fr       */
+/*   Updated: 2019/04/27 21:22:20 by mstratu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*ft_strdup(const char *s)
 		fresh[g] = s[i];
 		g++;
 		i++;
-	}
+	};
 	fresh[g] = '\0';
 	return (fresh);
 }

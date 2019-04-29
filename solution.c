@@ -6,7 +6,7 @@
 /*   By: mstratu <mstratu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 10:32:22 by mstratu           #+#    #+#             */
-/*   Updated: 2019/04/27 00:14:35 by mstratu          ###   ########.fr       */
+/*   Updated: 2019/04/27 20:48:54 by mstratu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char    **solution(t_coord **stor, int size) /* size is the num of tetro passing
 {
 	char **map;
 	int cnt;
-	
+
 	cnt = size;
 	size = new_map(size);  /* here size in the size of the map, see new _map function*/
 	map = create_map(size);

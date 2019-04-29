@@ -35,10 +35,7 @@ int     ft_checkhash(char **s)
     if (docount == 6 || docount == 8)
         return (GOOD);
     else
-	{
-		printf("error3");
         return (ERROR);
-	}
 }
 
 int     ft_checker(char **str)
@@ -51,21 +48,16 @@ int     ft_checker(char **str)
     j = 0;
     hash = 0;
   //  printf("Checking tetrimino\n\n");
-    while(i < 4)
+    while (i < 4)
     {
         j = 0;
-		while(str[i][j] != '\0')
+		while (str[i][j] != '\0')
        	{
            	if (i < 4 && str[i][j] != '.' && str[i][j] != '#')
-			{	
-				printf("i < 4 \n");
                	return (ERROR);
-			}
             else if (j != 3 && i == 4 && str[i][j] != '\n')
-            {	
-				printf("i == 4\n");
                	return (ERROR);
-			}
+
            	if (str[i][j] == '#')
                	hash++;
            	j++;
@@ -73,9 +65,7 @@ int     ft_checker(char **str)
        	i++;
 	}
     if (hash != 4)
-	{
-		printf("here2");
-        return (ERROR);
-	}
+	return (ERROR);
+
     return (GOOD);
 }

@@ -2,9 +2,9 @@
 #include <fcntl.h>
 #include "fillit.h"
 
-void    error(char *str)
+void    error()
 {
-  ft_putstr(str);
+  ft_putstr("error\n");
   exit(0);
 }
 
@@ -19,20 +19,27 @@ char    **read_map(int fd)
   while (i < 5)
   {
 	  if (get_next_line(fd, &buf) != -1)
+	  {
 		  grid[i] = ft_strdup(buf);
+			// printf("%zu ", ft_strlen(grid[i]));
+			free(buf);
+			if (ft_strlen(grid[i]) != 4 && ft_strlen(grid[i]) != 0)
+				error();
+	  }
 	  else
 		{
-		  error("bad line reading");
+		  error();
 		}
 	  i++;
   }
+	// printf("\n");
   //thing = ft_strsplit(buf, '\n');
   // if (grid[3][0] != '\0')
 	//   error("error with last newline");
   if (!ft_checker(grid))
-	  error("bad connections");
+	  error();
   if (!ft_checkhash(grid))
-	  error("bad check");
+	  error();
   return (grid);
 }
 // int		num_of_tetr(char *str)
@@ -60,7 +67,12 @@ int   size_file(char *argv)
 	fd = open(argv, O_RDONLY);
 	while ((n = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		count += n;  
+		count += n;
+		// printf("%d\n", n);
+		if (n != 21 && n != 20)
+			error();
+		if (n == 21 && buf[20] != '\n')
+			error();
 	}
 	close(fd);
 	return count;
@@ -80,21 +92,23 @@ int main(int argc, char **argv)
     i = 0;
     if (argc == 2)
     {
-			storage = (t_coord **)malloc(sizeof(t_coord *) * 27);
-			bzero(storage, 27);
-    	num_of_tetr = size_file(argv[1]) / 21 + 1;
+		storage = (t_coord **)malloc(sizeof(t_coord *) * 27);
+		bzero(storage, 27);
+		int	t = size_file(argv[1]);
+		if ((t + 1) % 21 != 0)
+			error();
+    num_of_tetr = t / 21 + 1;
 		fd = open(argv[1], O_RDONLY);
 		letter = 'A';
     	docount = 0;
-
-		
+		//grid = read_map(fd);	
 		while (docount < num_of_tetr)
 		{
 			grid = read_map(fd);
 			storage[docount] = extract_fig(grid, letter);
 			letter++;
 			docount++;
-			free(grid);
+			free_map(grid, 4);
 		}
 		sol = solution(storage, docount);
 		print_map(sol);
