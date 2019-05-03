@@ -6,75 +6,75 @@
 /*   By: mstratu <mstratu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:57:09 by mstratu           #+#    #+#             */
-/*   Updated: 2019/04/27 21:31:04 by mstratu          ###   ########.fr       */
+/*   Updated: 2019/05/02 18:46:56 by mstratu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_coord	*extract_fig(char  **save_tetro, char letter)
+void			get_fig(char **save_tetro, int *val)
 {
-    int 	x;
-    int 	y;
-    t_coord	*fig_of_hash;
-	char	**tetr;
-	int		xx[2];
-	int		yy[2];
+	int			x;
+	int			y;
 
-	fig_of_hash = (t_coord *)malloc(sizeof(t_coord));
+	val[0] = 3;
+	val[1] = 0;
+	val[2] = 3;
+	val[3] = 0;
 	y = 0;
-	xx[0] = 3;
-	xx[1] = 0;
-	yy[0] = 3;
-	yy[1] = 0;
-	fig_of_hash->name_tetr = letter;
 	while (y < 4)
 	{
 		x = 0;
 		while (x < 4)
-    	{
+		{
 			if (save_tetro[y][x] == '#')
 			{
-				xx[1] = ft_max(xx[1], x);
-				xx[0] = ft_min(xx[0], x);
-				yy[1] = ft_max(yy[1], y);
-				yy[0] = ft_min(yy[0], y);
+				val[1] = FT_MAX(val[1], x);
+				val[0] = FT_MIN(val[0], x);
+				val[3] = FT_MAX(val[3], y);
+				val[2] = FT_MIN(val[2], y);
 			}
 			x++;
-    	}
+		}
 		y++;
 	}
-	tetr = ft_memalloc(sizeof(char *) * (yy[1] - yy[0] + 1));
+}
+
+void			init(t_coord *fig_of_hash, int *v, char letter, char **tetr)
+{
+	fig_of_hash->name_tetr = letter;
+	fig_of_hash->height = v[3] - v[2] + 1;
+	fig_of_hash->width = v[1] - v[0] + 1;
+	fig_of_hash->tetr = tetr;
+}
+
+t_coord			*extract_fig(char **save_tetro, char letter)
+{
+	int			x;
+	int			y;
+	t_coord		*fig_of_hash;
+	char		**tetr;
+	int			v[4];
+	// char		*temp;//  = NULL;
+
+	fig_of_hash = (t_coord *)malloc(sizeof(t_coord));
+	get_fig(save_tetro, v);
+	tetr = ft_memalloc(sizeof(char *) * (v[3] - v[2] + 1));
 	y = 0;
-	fig_of_hash->height = yy[1] - yy[0] + 1;
-	fig_of_hash->width = xx[1] - xx[0] + 1;
-	while (y < yy[1] - yy[0] + 1)
+	while (y < v[3] - v[2] + 1)
 	{
-		tetr[y] = ft_strnew(xx[1] - xx[0] + 1);
+		tetr[y] = ft_strnew(v[1] - v[0] + 1);
 		x = 0;
-		while (x < xx[1] - xx[0] + 1)
+		while (x < v[1] - v[0] + 1)
 		{
-			tetr[y][x] = save_tetro[y + yy[0]][x + xx[0]];
+			tetr[y][x] = save_tetro[y + v[2]][x + v[0]];
 			if (tetr[y][x] == '#')
 				tetr[y][x] = letter;
 			x++;
 		}
 		y++;
 	}
-	// for (y = 0; y < yy[1] - yy[0] + 1; y++)
-	// {
-	// 	for (x = 0; x <  xx[1] - xx[0] + 1; x++)
-	// 	{
-	// 		printf("%c", tetr[y][x]);
-	// 	}
-	// 	printf("\n");
-	// }
-	// printf("Coordinates are \n");
-	// for (int i = 0; i < 2; i++)
-	// {
-	// 	printf("%d %d\n", xx[i], yy[i]);
-	// }
-	// printf("___________\n");
-	fig_of_hash->tetr = tetr;
+	init(fig_of_hash, v, letter, tetr);
+	// free_map(tetr, (v[3] - v[2] + 1));
 	return (fig_of_hash);
 }

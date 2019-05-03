@@ -25,18 +25,22 @@ libft:
 	make -sC libft/
 
 $(NAME): 
+	$(MAKE) -C libft/
 	$(CC) $(CFLAGS) $(LIB) $(SRC) -o $(NAME) $(AMULTI)
 
 debug:
-	$(CC) $(DFLAGS) $(AFLAGS) $(LIB) $(SRC) -o $(DNAME)
+	$(MAKE) -C libft/
+	$(CC) $(DFLAGS) $(LIB) $(SRC) -o $(DNAME)
 
 dclean:
 	rm -rf $(DNAME) $(DNAME).dSYM/
 
 clean:
+	make clean -C ./libft/
 	rm -f $(OBJ)
 
-fclean: 
+fclean:
+	make fclean -C ./libft/
 	rm -f $(NAME)
 
 re: fclean all

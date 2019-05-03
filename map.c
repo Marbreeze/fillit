@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mstratu <mstratu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/29 19:23:16 by mstratu           #+#    #+#             */
+/*   Updated: 2019/05/02 00:12:14 by mstratu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
-void	print_map(char **map)
+void		print_map(char **map)
 {
-	int i;
-	int sz;
+	int		i;
+	int		sz;
 
 	i = 0;
 	sz = 0;
@@ -22,13 +34,34 @@ void	free_map(char **map, int sz)
 	int i;
 
 	i = 0;
+	// sz = get_size(map);
 	while (i < sz)
 	{
 		ft_memdel((void **)&(map[i]));
-		i++;	
+		i++;
 	}
 	ft_memdel((void **)&(map));
+	ft_memdel((void **)&map);
 }
+
+// void		free_map(char **map, int sz)
+// {
+// 	int		i;
+
+// // char **tmp;
+// // tmp = map;
+
+// // while(*tmp)
+// // ft_strdel(&(*tmp++));
+// // ft_memdel((void**)&tmp);
+//  	i = 0;
+// 	while (i < sz)
+// 	{
+// 		ft_memdel((void **)&(map[i]));
+// 		i++;
+// 	}
+// 	ft_memdel((void **)&(map));
+//  }
 
 char		**create_map(int num)
 {
@@ -37,30 +70,29 @@ char		**create_map(int num)
 	int		j;
 
 	i = 0;
-	grid = (char**)malloc(sizeof(char*) * num); /*alloc for each string in the map*/
+	grid = (char**)malloc(sizeof(char*) * num);
 	while (i < num)
 	{
-		grid[i] = (char*)malloc(sizeof(char) * (num + 1)); /* alocate mem for each element from my string including the empty space for the last elem wich will be */
+		grid[i] = (char*)malloc(sizeof(char) * (num + 1));
 		i++;
 	}
 	i = 0;
-	while(i < num)
+	while (i < num)
 	{
-		j = 0;
-		while(j < num + 1)
+		j = -1;
+		while (++j < num + 1)
 		{
 			if (j == num)
 				grid[i][j] = '\0';
 			else
 				grid[i][j] = '.';
-			j++;
 		}
 		i++;
 	}
 	return (grid);
 }
 
-int		new_map(int num)
+int			new_map(int num)
 {
 	int	map;
 
