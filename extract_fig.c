@@ -6,7 +6,7 @@
 /*   By: mstratu <mstratu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:57:09 by mstratu           #+#    #+#             */
-/*   Updated: 2019/05/02 18:46:56 by mstratu          ###   ########.fr       */
+/*   Updated: 2019/05/03 16:42:45 by mstratu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_coord			*extract_fig(char **save_tetro, char letter)
 	t_coord		*fig_of_hash;
 	char		**tetr;
 	int			v[4];
-	// char		*temp;//  = NULL;
 
 	fig_of_hash = (t_coord *)malloc(sizeof(t_coord));
 	get_fig(save_tetro, v);
@@ -75,6 +74,5 @@ t_coord			*extract_fig(char **save_tetro, char letter)
 		y++;
 	}
 	init(fig_of_hash, v, letter, tetr);
-	// free_map(tetr, (v[3] - v[2] + 1));
 	return (fig_of_hash);
 }

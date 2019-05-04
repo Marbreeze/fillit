@@ -6,7 +6,7 @@
 /*   By: mstratu <mstratu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 19:23:16 by mstratu           #+#    #+#             */
-/*   Updated: 2019/05/02 00:12:14 by mstratu          ###   ########.fr       */
+/*   Updated: 2019/05/03 17:41:49 by mstratu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,13 @@ void	free_map(char **map, int sz)
 	int i;
 
 	i = 0;
-	// sz = get_size(map);
 	while (i < sz)
 	{
 		ft_memdel((void **)&(map[i]));
 		i++;
 	}
-	ft_memdel((void **)&(map));
 	ft_memdel((void **)&map);
 }
-
-// void		free_map(char **map, int sz)
-// {
-// 	int		i;
-
-// // char **tmp;
-// // tmp = map;
-
-// // while(*tmp)
-// // ft_strdel(&(*tmp++));
-// // ft_memdel((void**)&tmp);
-//  	i = 0;
-// 	while (i < sz)
-// 	{
-// 		ft_memdel((void **)&(map[i]));
-// 		i++;
-// 	}
-// 	ft_memdel((void **)&(map));
-//  }
 
 char		**create_map(int num)
 {

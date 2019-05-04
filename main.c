@@ -6,7 +6,7 @@
 /*   By: mstratu <mstratu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 16:12:14 by mstratu           #+#    #+#             */
-/*   Updated: 2019/05/02 00:17:25 by mstratu          ###   ########.fr       */
+/*   Updated: 2019/05/03 17:48:14 by mstratu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char			**read_map(int fd)
 	char			*buf;
 
 	i = 0;
-	// grid = (char**)malloc(sizeof(char*) * 5);
 	grid = ft_memalloc(sizeof(char*) * 5);
 	while (i < 5)
 	{
@@ -42,6 +41,7 @@ char			**read_map(int fd)
 			error();
 		i++;
 	}
+	// free(grid[4]);
 	if (!ft_checker(grid))
 		error();
 	if (!ft_checkhash(grid))
@@ -88,34 +88,23 @@ int				main(int argc, char **argv)
 		bzero(storage, num_of_tetr);
 		fd = open(argv[1], O_RDONLY);
 		docount = -1;
-	
+		
 		while (++docount < num_of_tetr)
 		{
 			grid = read_map(fd);
 			storage[docount] = extract_fig(grid, (docount + 'A'));
-			free_map(grid, 4);
-			// if (docount == 6)
-			// {
-			// 	// print_map(grid);
-			// 	while(1)
-			// 	;
-			// }
+			if (docount == num_of_tetr - 1)
+				free_map(grid, 4);
+			else
+				free_map(grid, 5);
 		}
-		// see 6 leaks here
-			// while (1)
-			// ;
 		solution(storage, docount);
-		// docount = -1;
-
-		
 		while (--num_of_tetr >= 0)
 		{
-			// ft_memdel((void *)(storage[num_of_tetr]->tetr));
 			free_map(storage[num_of_tetr]->tetr, storage[num_of_tetr]->height);
 			free(storage[num_of_tetr]);
 		}
 		free(storage);
 		close(fd);
-	
 	}
 }
